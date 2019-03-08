@@ -3,7 +3,7 @@ Xinput Modkey
 ==========================
 
 	Modkeys and hotkeys for gamepad buttons in games that use Xinput.
-	Windows 32 and 64-bit architectures.
+	Both Windows architectures, 32 and 64-bit.
 
 	Xinput Modkey is a DLL file that needs to be attached to the
 	target process durning its startup.
@@ -70,14 +70,14 @@ How to check if a file is 32-bit or 64-bit
 ---------------------------------------------
 
 	1. Right-click on the executable file you want to check
-	2. Select “Properties”
-	3. Click the tab “Compatibility”
+	2. Select ?Properties?
+	3. Click the tab ?Compatibility?
 	4. In the section "Compatibility mode" put a check in the box under
 	   "Run this program in compatibility mode for"
 	5. Open the drop-down menu that lists operating systems.
 	   If the list of operating systems includes Windows XP, then the
 	   file is 32-bit, otherwise it's 64-bit.
-	6. Press Cancel to Close “Properties".
+	6. Press Cancel to Close ?Properties".
 
 	Reference: https://www.techsupportalert.com/content/how-find-out-if-program-or-executable-file-64-bit-or-32-bit.htm
 
@@ -90,6 +90,16 @@ Changelog
 		* Thumbstick input interpreted as circular, rather than as square region.
 		* Option to reinterpolate analogue inputs ("bADZReinterpolate").
 		  Used with "bEnforceAPIDeadzones".
+
+	v2.1
+		* Application is now split into multiple projects.
+		* GUI Application to manage installations.
+		* Filter DLL.
+		* Forwarder DLL.
+		* Installer works with different architectures by 
+		  executing appropriate process that examines binary files.
+		* Using FLTK GUI library.
+
 
 
 Online Resources
