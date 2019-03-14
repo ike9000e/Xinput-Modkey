@@ -1,7 +1,6 @@
 
 Xinput Modkey
-=============
-
+==========================
 
 	Modkeys and hotkeys for gamepad buttons in games that use Xinput.
 	Comes with simple GUI Manager. Both Windows architectures,
@@ -36,9 +35,9 @@ Xinput Modkey
 	Unless it is desired to do this manually, GUI manager will
 	attempt install procedure and will display any messages if something went wrong.
 	Installation doesn't modify any of existing game files, namelly
-	executables; It only copies two or more files off of which,
+	executables; it only copies two or more files off of which,
 	one is a proxy that enables Xinput Modkey to be attached to the
-	game/program every time it starts, untill uninstalled.
+	game/program every time it starts - untill uninstalled.
 	For more details please see Manual Installation and Uninstallation below.
 
 
@@ -126,14 +125,14 @@ How to check if a file is 32-bit or 64-bit
 ---------------------------------------------
 
 	1. Right-click on the executable file you want to check
-	2. Select ?Properties?
-	3. Click the tab ?Compatibility?
+	2. Select “Properties”
+	3. Click the tab “Compatibility”
 	4. In the section "Compatibility mode" put a check in the box under
 	   "Run this program in compatibility mode for"
 	5. Open the drop-down menu that lists operating systems.
 	   If the list of operating systems includes Windows XP, then the
 	   file is 32-bit, otherwise it's 64-bit.
-	6. Press Cancel to Close ?Properties".
+	6. Press Cancel to Close “Properties".
 
 	Reference: https://www.techsupportalert.com/content/how-find-out-if-program-or-executable-file-64-bit-or-32-bit.htm
 
@@ -172,9 +171,18 @@ Changelog
 		  that use Direct Input to read keyboard states. (Note: this is only
 		  for DInput keyboard not gamepad.)
 		* Filter DLL INI file - better documentation.
-		* Added startup sound that plays when Filter DLL gets loaded.
+		* Added startup sound that plays when Filter DLL is started.
 		  Use INI bNoStartupSnd=1 to disable.
 		* Fixes when parsing keyboard key names - added more key names.
+
+	v2.3
+
+		* Fix for dedzones implementation used with bEnforceAPIDeadzones=1.
+		  Application recieves own values, rather than mixed with internal logic.
+		* More precise mouse movement emulation. Possibly sub-pixel precision.
+		* Ability to turn-off file logging, bNoLogFile=1.
+		* Ability to enable Xinput for applications that doesn't use Xinput
+		  at all (bXiEnabled=1 in "s_internal_xinput" section).
 
 
 
