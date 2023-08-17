@@ -26,7 +26,7 @@ Xinput Modkey
 
 	In current version, configuration must be done manually,
 	by editing configuration INI file. Please see self documented
-	"documentated_xinput_modkey.ini" file.
+	"documented_xinput_modkey.ini" file.
 
 	Filter DLL is a windows module file that needs to be attached to the
 	target process durning its startup. This is the module that,
@@ -45,7 +45,7 @@ Xinput Modkey
 Using Filter DLL - Manual Install
 --------------------------------------------------
 
-	Determine architecture your target game/program executable (.exe).
+	Determine the architecture of your target game/program executable (.exe).
 	See section "How to check if a file is 32-bit or 64-bit" below.
 
 	Copy "xinput_modkey.dll" and "xinput_modkey.ini" into the same
@@ -64,15 +64,24 @@ Using Filter DLL - Manual Install
 		   paths:
 		       "release64/xinput_dll_forwarder.dll"
 		       "release32/xinput_dll_forwarder.dll"
+		   
 		   In the game/program directory, remame "xinput_dll_forwarder.dll"
-		   to "xinput1_3.dll".
+		   to "xinput1_3.dll". Note that "xinput1_3.dll" is the most common name.
+		   All possible different names are: 
+				"xinput9_1_0.dll", 
+				"xinput1_1.dll", 
+				"xinput1_2.dll", 
+				"xinput1_3.dll" and 
+				"xinput1_4.dll".
+		   
+		   To determine which one to use, examine the loaded modules 
+		   of the running process|game.
 
 		2. Use the loader program to start the game executable with
-		   desired DLL module attached to it, in this case "xinput_modkey.dll".
+		   the filter DLL module attached, "xinput_modkey.dll".
 
 		3. Use PE editor programs, such as CFF Explorer VIII, to edit
 		   the game file and add "xinput_modkey.dll" into its import table.
-
 
 
 Manual Uninstall
@@ -184,13 +193,30 @@ Changelog
 		* Ability to enable Xinput for applications that doesn't use Xinput
 		  at all (bXiEnabled=1 in "s_internal_xinput" section).
 
+	v2.3.1
+
+		* Routine auto-repeat option for gamepad buttons ('szAutoRepeat').
+		* Routine disabling by 'bRDisabled' INI option.
+	
+	v2.3.2
+
+		* Mouse wheel simulation. Mouse button names m4 and m5 correspond to wheel forward and back.
+	
+	v2.4.1
+	
+		* Improvements for loading filter DLL on Windows 10.
+		* Option to show message box on startup that provides simple visual notification. INI value name: bShowStartupMBox=1.
+		  Note that this itself pauses the initialization and may crash the application.
+		* Option to delay initialization of the DLL by time in milliseconds.
+		  INI value name: nInitDelayMs=4000 (eg.: 1000 stands for 1 second).
+		* Removed GUI Manager from the project. Use the manager from older version or install manually.
 
 
 Online Resources
 ----------------------
 
 	Project Website:
-	https://github.com/ikk00/Xinput-Modkey
+	https://github.com/ike9000e/Xinput-Modkey
 
 	CFF Explorer VII and Explorer Suite:
 	https://ntcore.com/?page_id=388
