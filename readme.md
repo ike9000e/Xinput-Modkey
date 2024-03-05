@@ -20,7 +20,17 @@ Xinput Modkey
 	In current version, configuration must be done manually,
 	by editing configuration INI file. Please see self documented
 	"documented_xinput_modkey.ini" file.
-
+	
+	When made changes to the INI, configuration can be updated by
+	pressing the reset hotkey. By default it is set to:
+	
+		Left shoulder + Right shoulder + Back + Y
+	
+	Can be changed or disabled by using the following INI variable:
+		
+		szReinitHotkey = LSh+RSh+BACK+Y
+	
+	
 	Filter DLL is a windows module file that needs to be attached to the
 	target process durning its startup. This is the module that,
 	once configured, works independently by starting itself every
