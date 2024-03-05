@@ -3,8 +3,7 @@ Xinput Modkey
 ==========================
 
 	Modkeys and hotkeys for gamepad buttons in games that use Xinput.
-	Comes with simple GUI Manager. Both Windows architectures,
-	32 and 64-bit.
+	Both Windows architectures, 32 and 64-bit.
 
 	With Xinput Modkey, following can be achieved:
 
@@ -12,17 +11,11 @@ Xinput Modkey
 	* Simulate keyboard keys with gamepad inputs.
 	* Simulate mouse buttons.
 	* Navigate with mouse cursor using analog thumbsticks.
-	* Apply deadzones in games that doesn't do this. Default only.
-	* Remap simultaneously pressed two or more gamepad buttons into:
+	* Apply deadzones in games that doesn't do this (default only).
+	* Remap simultaneously pressed, two or more, gamepad buttons into:
 	  * another gamepad button,
 	  * keyboard key or
 	  * mouse button.
-
-	It's split into three main components:
-
-	* Gui Manager
-	* Filter DLL - configurable via INI file.
-	* Forwarder DLL - enables non modyfying installations.
 
 	In current version, configuration must be done manually,
 	by editing configuration INI file. Please see self documented
@@ -32,13 +25,8 @@ Xinput Modkey
 	target process durning its startup. This is the module that,
 	once configured, works independently by starting itself every
 	time the game/program starts.
-	Unless it is desired to do this manually, GUI manager will
-	attempt install procedure and will display any messages if something went wrong.
-	Installation doesn't modify any of existing game files, namelly
-	executables; it only copies two or more files off of which,
-	one is a proxy that enables Xinput Modkey to be attached to the
-	game/program every time it starts - untill uninstalled.
-	For more details please see Manual Installation and Uninstallation below.
+	
+	For more details please see "Manual Install" and "Manual Uninstall" below.
 
 
 
@@ -84,6 +72,7 @@ Using Filter DLL - Manual Install
 		   the game file and add "xinput_modkey.dll" into its import table.
 
 
+
 Manual Uninstall
 ----------------------------
 
@@ -96,9 +85,31 @@ Manual Uninstall
 
 
 
+Logging Configuration
+----------------------------
+	
+	By default no log information is saved.
+	
+	It can be enabled by creating empty "xinput_modkey.log" file
+	in one of the following 2 locations:
+		
+		1. The same directory where the "xinput_modkey.dll" file is.
+		2. The "C:\Temp" directory.
+	
+	First file that exitst is used. Otherwise logging is disabled.
+
+	The log will contain information such as:
+	
+		* Names of EXE and DLL files used.
+		* Any configuration errors that were detected when parsing the INI file.
+
+
 
 Build instructions
 --------------------------
+
+	Instructions for building filter DLL only.
+	Instructions for building forwarder DLL not provided. They should be standard, deduced from the source code.
 
 	Software needed:
 
@@ -111,8 +122,6 @@ Build instructions
 
 	* Detours Software Package - tested with v4.0.1.
 
-	* FLTK Fast Light Tool Kit - tested with v1.3.5.
-
 
 	Source code must be compiled separatelly for 32 and 64-bit
 	Windows architectures.
@@ -124,26 +133,36 @@ Build instructions
 		/O1
 		/D WIN32_LEAN_AND_MEAN
 		/D _WIN32_WINNT=0x501
+		/D HXDW_NO_ADVAPI32_LIB
+		/D HXDW_NO_GDI32_LIB
+		/D HXDW_NO_SHELL32_LIB
+
 
 	Use the following link time options:
 
 		/dll
 
 
+
 How to check if a file is 32-bit or 64-bit
 ---------------------------------------------
 
-	1. Right-click on the executable file you want to check
-	2. Select “Properties”
-	3. Click the tab “Compatibility”
-	4. In the section "Compatibility mode" put a check in the box under
-	   "Run this program in compatibility mode for"
-	5. Open the drop-down menu that lists operating systems.
-	   If the list of operating systems includes Windows XP, then the
-	   file is 32-bit, otherwise it's 64-bit.
-	6. Press Cancel to Close “Properties".
+	Other than using a third party application that can do this,
+	following method can be used:
 
-	Reference: https://www.techsupportalert.com/content/how-find-out-if-program-or-executable-file-64-bit-or-32-bit.htm
+		1. Right-click on the executable file you want to check
+		2. Select “Properties”
+		3. Click the tab “Compatibility” tab
+		4. In the section "Compatibility mode" put a check in the box under
+		   "Run this program in compatibility mode for"
+		5. Open the drop-down menu that lists operating systems.
+		   If the list of operating systems includes Windows XP, then the
+		   file is 32-bit, otherwise it's 64-bit.
+		6. Press Cancel to Close “Properties".
+
+		Tested on Windows 7 and Windows 10.
+
+		Reference: https://www.techsupportalert.com/content/how-find-out-if-program-or-executable-file-64-bit-or-32-bit.htm
 
 
 
@@ -189,7 +208,7 @@ Changelog
 		* Fix for dedzones implementation used with bEnforceAPIDeadzones=1.
 		  Application recieves own values, rather than mixed with internal logic.
 		* More precise mouse movement emulation. Possibly sub-pixel precision.
-		* Ability to turn-off file logging, bNoLogFile=1.
+		* Ability to turn-off file logging, bNoLogFile=1 (NOTE: removed in later version).
 		* Ability to enable Xinput for applications that doesn't use Xinput
 		  at all (bXiEnabled=1 in "s_internal_xinput" section).
 
@@ -211,6 +230,22 @@ Changelog
 		  INI value name: nInitDelayMs=4000 (eg.: 1000 stands for 1 second).
 		* Removed GUI Manager from the project. Use the manager from older version or install manually.
 
+	v2.5.1
+		
+		* Added configuration reset hotkey. 
+		  INI value name: 'szReinitHotkey' in the "[s_main]" section.
+		  Set to the following buttons, by default: LSh+RSh+BACK+Y (Left shoulder, Right shoulder, Back and Y).
+		* Added macro functionality. A mini script that lists buttons and time intervals.
+		  INI value name: 'szMacroScr' in the routine ("[routine:#]") section.
+		* Macro: added option to specify what to do when macro activates again.
+		  INI value name: 'szMBubbleAction' (in the routine section).
+		* Macro: added option to play system asterisk notification when macro starts and/or stops.
+		  INI value names: "bMBAsterisk" and "bMEAsterisk" (in the routine section).
+		* Removed INI configuration: "bNoLogFile".
+		  User control of where to save the log has been changed.
+		  Please the "Logging Configuration" section.
+		  
+
 
 Online Resources
 ----------------------
@@ -226,7 +261,3 @@ Online Resources
 
 	Guide - Attach DLL to Archive.exe using CFF Explorer VII
 	https://www.nexusmods.com/skyrimspecialedition/articles/927
-
-	FLTK Fast Light Tool Kit
-	https://www.fltk.org/
-
